@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Terminal Access</title>
+<style>
+  :root{ --bg:#000; --text:#7CFC00; --muted:#4caf50aa; --glass: rgba(255,255,255,0.03);}
+  html,body{height:100%;margin:0;font-family: "Consolas", "Courier New", monospace;background:var(--bg); color:var(--text);}
+  .wrap{display:flex;align-items:center;justify-content:center;height:100%;padding:20px;}
+  .terminal{
+    width:min(920px,96%); max-width:1200px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:8px; padding:28px; box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+    border:1px solid rgba(124,252,0,0.06);
+  }
+  .header{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .dots{display:flex;gap:6px;}
+  .dot{width:12px;height:12px;border-radius:50%;}
+  .d-red{background:#ff5f56}.d-yellow{background:#ffbd2e}.d-green{background:#27c93f}
+  .screen{background:transparent; padding:12px; min-height:360px; overflow:auto; color:var(--text); line-height:1.5; font-size:15px;}
+  .line{white-space:pre-wrap; opacity:0; transform:translateY(6px); transition:all 160ms ease;}
+  .muted{color:var(--muted); font-size:13px;}
+  .bigcenter{display:flex;align-items:center;justify-content:center;padding:28px 12px;}
+  .final {
+    margin-top:18px; padding:18px; border-radius:6px; background:var(--glass); color:#fff; text-align:center;
+    font-weight:700; letter-spacing:0.6px;
+  }
+  .prank { color:#fff; background:linear-gradient(90deg,#ff3cac,#784ba0); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:900; font-size:20px;}
+  .sub{font-size:14px;color:#c8ffc8;margin-top:8px;font-weight:600;}
+  /* small scrollbar */
+  .screen::-webkit-scrollbar{height:8px;width:8px}
+  .screen::-webkit-scrollbar-thumb{background:rgba(124,252,0,0.08);border-radius:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="terminal" role="region" aria-label="prank terminal">
+    <div class="header">
+      <div class="dots">
+        <div class="dot d-red"></div><div class="dot d-yellow"></div><div class="dot d-green"></div>
+      </div>
+      <div style="margin-left:12px;color:var(--muted);font-size:13px;">SYSTEM TERMINAL • offline-prank-mode</div>
+    </div>
+
+    <div class="screen" id="screen" aria-live="polite"></div>
+
+    <div class="bigcenter">
+      <div id="finalBox" class="final" style="display:none;">
+        <div class="prank">PRANK MODE: ACTIVATED</div>
+        <div class="sub">No personal data was collected — it was just a gag. 😂</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const lines = [
+  "[BOOT] Initializing secure node...",
+  "[BOOT] Loading anonymized modules...",
+  "[TRACE] Spawning virtual conduits...",
+  ">> Establishing handshake with random.coffee:443",
+  ">> Verifying user agent... OK",
+  "[SCAN] Enumerating local caches...",
+  "[SCAN] Scrubbing temp logs...",
+  "[SIM] Simulating darknet handshake (harmless simulation)...",
+  "[SIM] Rendering fake trace output...",
+  "LOADING: █████████░░░ 82%",
+  "LOADING: ██████████░ 94%",
+  "LOADING: ███████████ 100%",
+  "",
+  "[NOTICE] This is a harmless prank page.",
+  "[NOTICE] No real data collection or reporting occurred.",
+  "",
+  "[COMPLETE] Prank payload executed successfully."
+];
+
+const screen = document.getElementById('screen');
+const finalBox = document.getElementById('finalBox');
+
+let i = 0;
+function appendLine(text, delay=0){
+  const el = document.createElement('div');
+  el.className = 'line';
+  el.textContent = text;
+  screen.appendChild(el);
+  // ensure scroll
+  screen.scrollTop = screen.scrollHeight;
+  // animate in
+  setTimeout(()=>{ el.style.opacity = 1; el.style.transform = 'translateY(0)'; screen.scrollTop = screen.scrollHeight; }, 30 + delay);
+}
+
+function runSequence(idx=0){
+  if(idx >= lines.length){
+    // show final prank box after short pause
+    setTimeout(()=>{ finalBox.style.display = 'block'; finalBox.scrollIntoView({behavior:'smooth', block:'center'}); }, 700);
+    return;
+  }
+  const text = lines[idx];
+  // variable delay to feel more "typing-like"
+  const base = Math.min(120 + Math.random()*260, 420);
+  appendLine(text);
+  setTimeout(()=> runSequence(idx+1), base);
+}
+
+// optional: click to replay
+document.body.addEventListener('click', ()=> {
+  // reset
+  screen.innerHTML = '';
+  finalBox.style.display = 'none';
+  runSequence(0);
+});
+
+runSequence(0);
+</script>
+</body>
+</html>
