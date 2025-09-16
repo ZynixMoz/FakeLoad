@@ -46,7 +46,7 @@
 
     <div class="bigcenter">
       <div id="finalBox" class="final" style="display:none;">
-        <div class="prank">PRANK MODE: ACTIVATED</div>
+        <div class="prank">AGL-PP4: ACTIVATED</div>
         <div class="sub">We will be needing this for the future, thank you. If you want to undo every transcript, please message: AGL6th in telegram.</div>
       </div>
     </div>
@@ -55,23 +55,23 @@
 
 <script>
 const lines = [
-  "[BOOT] Analyzing Data store..",
-  "[BOOT] Loading anonymized modules...",
-  "[TRACE] Storing Data Base 13/200...",
-  ">> 82.020.3822 Has been saved! Sending to main agency",
-  ">> user detected! user ID: 839373929290008392383939329",
-  "[SCAN] ...",
-  "[SCAN] Storing NSFW",
-  "[SIM] Malicious file has been found!...",
-  "[SIM] Deleting & transcripting to data agency...",
-  "LOADING: █████████░░░ 82%",
-  "LOADING: ██████████░ 94%",
-  "LOADING: ███████████ 100%",
+  "[BOOT] Analyzing Data store",
+  "[BOOT] Loading anonymized modules",
+  "[TRACE] Storing Data Base 13/200",
+  "User 82.020.3822 has been saved. Sending to main agency",
+  "User detected - ID: 839373929290008392383939329",
+  "[SCAN] Running scan",
+  "[SCAN] Storing flagged files",
+  "[SIM] Malicious file found",
+  "[SIM] Deleting and sending report to agency",
+  "LOADING: 82%",
+  "LOADING: 94%",
+  "LOADING: 100%",
   "",
-  "[NOTICE] Hello, Thank you for visiting this website.",
-  "[NOTICE] I am AGL-6th, a super intelligent agency bot, we will proceed to store all your datas & infos",
+  "[NOTICE] Hello, thank you for visiting this website.",
+  "[NOTICE] I am AGL-6th, an automated agency bot. We will proceed to store all your data and information.",
   "",
-  "[COMPLETE] \"Data saver\" nil- executed successfully."
+  "[COMPLETE] Data saver executed successfully."
 ];
 
 const screen = document.getElementById('screen');
@@ -96,7 +96,7 @@ function runSequence(idx=0){
   if(idx >= lines.length){
     setTimeout(()=>{ 
       finalBox.style.display = 'block'; 
-      finalBox.scrollIntoView({behavior:'smooth', block:'center'}); 
+      try { finalBox.scrollIntoView({behavior:'smooth', block:'center'}); } catch(e) {}
     }, 700);
     return;
   }
