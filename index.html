@@ -47,7 +47,7 @@
     <div class="bigcenter">
       <div id="finalBox" class="final" style="display:none;">
         <div class="prank">PRANK MODE: ACTIVATED</div>
-        <div class="sub">We will be needing this for the future, thank you. if you want to undo every transcript, please message: AGL6th in telegram. </div>
+        <div class="sub">We will be needing this for the future, thank you. If you want to undo every transcript, please message: AGL6th in telegram.</div>
       </div>
     </div>
   </div>
@@ -71,40 +71,43 @@ const lines = [
   "[NOTICE] Hello, Thank you for visiting this website.",
   "[NOTICE] I am AGL-6th, a super intelligent agency bot, we will proceed to store all your datas & infos",
   "",
-  "[COMPLETE] "Data saver" nil- executed successfully."
+  "[COMPLETE] \"Data saver\" nil- executed successfully."
 ];
 
 const screen = document.getElementById('screen');
 const finalBox = document.getElementById('finalBox');
 
-let i = 0;
 function appendLine(text, delay=0){
   const el = document.createElement('div');
   el.className = 'line';
   el.textContent = text;
   screen.appendChild(el);
-  // ensure scroll
+  // auto scroll
   screen.scrollTop = screen.scrollHeight;
   // animate in
-  setTimeout(()=>{ el.style.opacity = 1; el.style.transform = 'translateY(0)'; screen.scrollTop = screen.scrollHeight; }, 30 + delay);
+  setTimeout(()=>{ 
+    el.style.opacity = 1; 
+    el.style.transform = 'translateY(0)'; 
+    screen.scrollTop = screen.scrollHeight; 
+  }, 30 + delay);
 }
 
 function runSequence(idx=0){
   if(idx >= lines.length){
-    // show final prank box after short pause
-    setTimeout(()=>{ finalBox.style.display = 'block'; finalBox.scrollIntoView({behavior:'smooth', block:'center'}); }, 700);
+    setTimeout(()=>{ 
+      finalBox.style.display = 'block'; 
+      finalBox.scrollIntoView({behavior:'smooth', block:'center'}); 
+    }, 700);
     return;
   }
   const text = lines[idx];
-  // variable delay to feel more "typing-like"
   const base = Math.min(120 + Math.random()*260, 420);
   appendLine(text);
   setTimeout(()=> runSequence(idx+1), base);
 }
 
-// optional: click to replay
+// replay when click anywhere
 document.body.addEventListener('click', ()=> {
-  // reset
   screen.innerHTML = '';
   finalBox.style.display = 'none';
   runSequence(0);
